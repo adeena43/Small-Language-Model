@@ -1,0 +1,64 @@
+INPUTS (3 tokens, d_k = d_v = 2)
+
+Q =
+[[1. 0.]
+ [0. 1.]
+ [1. 1.]]
+
+K =
+[[1. 0.]
+ [0. 1.]
+ [1. 1.]]
+
+V =
+[[1. 2.]
+ [3. 4.]
+ [5. 6.]]
+
+Step 1: scores = Q K^T
+[[1. 0. 1.]
+ [0. 1. 1.]
+ [1. 1. 2.]]
+
+Step 2: divide by sqrt(d_k) = sqrt(2) = 1.4142
+[[0.7071 0.     0.7071]
+ [0.     0.7071 0.7071]
+ [0.7071 0.7071 1.4142]]
+
+Step 3: row-wise softmax -> attention weights (each row sums to 1)
+[[0.4011 0.1978 0.4011]
+ [0.1978 0.4011 0.4011]
+ [0.2483 0.2483 0.5035]]
+
+   row sums =
+[1. 1. 1.]
+
+Step 4: output = weights @ V
+[[3.     4.    ]
+ [3.4067 4.4067]
+ [3.5105 4.5105]]
+
+Step 5: CAUSAL MASK -> masked score matrix (future positions = -inf)
+[[0.7071   -inf   -inf]
+ [0.     0.7071   -inf]
+ [0.7071 0.7071 1.4142]]
+
+Step 6: softmax of masked scores (exp(-inf) = 0 so future weights are exactly 0)
+[[1.     0.     0.    ]
+ [0.3302 0.6698 0.    ]
+ [0.2483 0.2483 0.5035]]
+
+Step 7: masked output = masked_weights @ V
+[[1.     2.    ]
+ [2.3395 3.3395]
+ [3.5105 4.5105]]
+
+WHAT CHANGED (information available to each position):
+
+  token 1 : without mask it mixes info from tokens 1,2,3; with mask it sees ONLY itself (output = V[1]).
+  token 2 : without mask it sees 1,2,3; with mask it sees tokens 1 and 2 only.
+  token 3 : sees tokens 1,2,3 in both cases (the last token may look at the whole past).
+  => the masked output of position t depends only on tokens <= t, which is what lets a GPT
+     predict token t+1 from tokens 1..t without 'cheating' by looking at the answer.
+
+Cross-check: src.attention.scaled_dot_product_attention reproduces every matrix above  [OK]

@@ -1,0 +1,9 @@
+# Runtime / inference dependencies (what the API needs).
+# On Render use the CPU build of torch first (see render.yaml / README):
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu && pip install -r requirements.txt
+torch>=2.0
+numpy>=1.24
+pyyaml>=6.0
+fastapi>=0.100
+uvicorn>=0.23
+pydantic>=2.0

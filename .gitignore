@@ -1,0 +1,25 @@
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+*.egg-info/
+
+# secrets / local config  (never commit these)
+.env
+*.key
+secrets*
+
+# data (downloaded automatically by src/dataset.py; see data/README.md)
+data/input.txt
+
+# checkpoints: only the final model is committed (it is only a few MB); everything else is ignored
+checkpoints/*.pt
+!checkpoints/best.pt
+outputs/ablation/checkpoints/
+
+# OS / editor
+.DS_Store
+.vscode/

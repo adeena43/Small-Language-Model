@@ -1,0 +1,18 @@
+# Render Blueprint (optional). You can also create the service by hand in the Render dashboard:
+#   Build command : pip install torch --index-url https://download.pytorch.org/whl/cpu && pip install -r requirements.txt
+#   Start command : uvicorn src.api:app --host 0.0.0.0 --port $PORT
+services:
+  - type: web
+    name: minigpt-api
+    runtime: python
+    plan: free
+    buildCommand: pip install torch --index-url https://download.pytorch.org/whl/cpu && pip install -r requirements.txt
+    startCommand: uvicorn src.api:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: CHECKPOINT_PATH
+        value: checkpoints/best.pt
+      # - key: CHECKPOINT_URL        # only needed if checkpoints/best.pt is NOT committed to the repo
+      #   value: https://.../best.pt

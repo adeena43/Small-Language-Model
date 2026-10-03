@@ -1,0 +1,8 @@
+# Everything needed for training, experiments, plots and tests.
+-r requirements.txt
+matplotlib>=3.7
+pandas>=2.0
+tabulate>=0.9
+tqdm>=4.65
+pytest>=7.0
+httpx>=0.24
