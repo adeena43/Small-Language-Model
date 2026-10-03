@@ -12,6 +12,7 @@ import argparse
 import csv
 import json
 import math
+import os
 import time
 from pathlib import Path
 
@@ -64,8 +65,22 @@ def save_loss_plot(rows: list[dict], path: Path, title: str = "Training vs valid
     fig.tight_layout(); path.parent.mkdir(parents=True, exist_ok=True); fig.savefig(path, dpi=150); plt.close(fig)
 
 
-def train(cfg: dict, run_name: str = "main", quiet: bool = False, text: str | None = None) -> dict:
-    """Full training run. Returns a summary dict (also written to <out_dir>/logs/<run_name>_summary.json)."""
+RESUME_KEYS = ["lr", "min_lr", "warmup_steps", "weight_decay", "grad_clip", "batch_size", "max_steps"]
+
+
+def fingerprint(cfg: dict) -> str:
+    """Identifies a training setup; a resume file is only reused if the setup is identical."""
+    return json.dumps({"model": cfg["model"], "train": {k: cfg["train"][k] for k in RESUME_KEYS}, "seed": cfg["seed"]}, sort_keys=True)
+
+
+def train(cfg: dict, run_name: str = "main", quiet: bool = False, text: str | None = None,
+          resume: bool = False, stop_after_step: int | None = None) -> dict:
+    """Full training run. Returns a summary dict (also written to <out_dir>/logs/<run_name>_summary.json).
+
+    resume=True : every `save_interval` steps the complete training state is written to <checkpoint_dir>/<run>_resume.pt;
+                  if that file exists (and the config is identical) training continues from there instead of restarting.
+    stop_after_step : test hook that simulates an interruption (raises InterruptedError).
+    """
     t = cfg["train"]
     set_seed(cfg["seed"])
     device = get_device(t["device"])
@@ -98,17 +113,46 @@ def train(cfg: dict, run_name: str = "main", quiet: bool = False, text: str | No
         torch.cuda.reset_peak_memory_stats()
     tokens_seen, last_tick, tick_tokens = 0, time.time(), 0
     sample_file = sample_dir / f"{run_name}_training_samples.txt"
-    sample_file.write_text("", encoding="utf-8")
     prompt_ids = torch.tensor([tok.encode(t["sample_prompt"])], device=device)
     tps = 0.0
     train_loss_ema = None
+    start_step = 0
+    resume_path = ckpt_dir / f"{run_name}_resume.pt"
+    save_every = t.get("save_interval") or t["eval_interval"]
 
     def save_ckpt(path, step, val_loss):
         torch.save({"model_state": model.state_dict(), "model_config": model.config, "chars": tok.chars,
                     "step": step, "val_loss": val_loss, "config": cfg}, path)
 
+    def save_resume(next_step):
+        """Atomic write (tmp file then rename) so a timeout in the middle of saving cannot corrupt the resume file."""
+        tmp = resume_path.with_suffix(".tmp")
+        torch.save({"model_state": model.state_dict(), "opt_state": opt.state_dict(), "next_step": next_step,
+                    "rows": rows, "best_val": best_val, "tokens_seen": tokens_seen, "elapsed": time.time() - t0,
+                    "rng_cpu": torch.get_rng_state(),
+                    "rng_cuda": torch.cuda.get_rng_state_all() if torch.cuda.is_available() else None,
+                    "fingerprint": fingerprint(cfg)}, tmp)
+        os.replace(tmp, resume_path)
+
+    resumed = False
+    if resume and resume_path.exists():
+        st = torch.load(resume_path, map_location="cpu", weights_only=False)
+        if st["fingerprint"] == fingerprint(cfg):
+            model.load_state_dict(st["model_state"]); opt.load_state_dict(st["opt_state"])
+            start_step, rows, best_val = st["next_step"], st["rows"], st["best_val"]
+            tokens_seen, t0 = st["tokens_seen"], time.time() - st["elapsed"]
+            torch.set_rng_state(st["rng_cpu"])
+            if st["rng_cuda"] is not None and torch.cuda.is_available():
+                torch.cuda.set_rng_state_all(st["rng_cuda"])
+            resumed = True
+            print(f"[resume] {run_name}: continuing from step {start_step}/{t['max_steps']}")
+        else:
+            print(f"[resume] {run_name}: found a resume file for a DIFFERENT config - ignoring it and starting fresh")
+    if not resumed:
+        sample_file.write_text("", encoding="utf-8")
+
     model.train()
-    for step in range(t["max_steps"] + 1):
+    for step in range(start_step, t["max_steps"] + 1):
         lr = lr_at(step, t)
         for g in opt.param_groups:
             g["lr"] = lr
@@ -146,8 +190,14 @@ def train(cfg: dict, run_name: str = "main", quiet: bool = False, text: str | No
             tps = tick_tokens / max(1e-9, now - last_tick); last_tick, tick_tokens = now, 0
             rows.append({"step": step, "epoch": round(tokens_seen / len(train_data), 3), "train_loss": loss.item(),
                          "val_loss": None, "lr": lr, "tokens_per_sec": tps, "elapsed_sec": now - t0})
+        if resume and (step + 1) % save_every == 0 and step + 1 < t["max_steps"]:
+            save_resume(step + 1)
+        if stop_after_step is not None and step + 1 >= stop_after_step:
+            raise InterruptedError(f"simulated interruption after step {step + 1}")
 
     elapsed = time.time() - t0
+    if resume_path.exists():
+        resume_path.unlink()          # run finished: the resume file is no longer needed
     save_ckpt(ckpt_dir / ("last.pt" if main_run else f"{run_name}_last.pt"), t["max_steps"], rows[-1]["val_loss"])
     with open(log_dir / f"{run_name}_log.csv", "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0].keys())); w.writeheader(); w.writerows(rows)
@@ -199,6 +249,7 @@ def main():
     ap.add_argument("--config", default=None)
     ap.add_argument("--set", nargs="*", default=[], metavar="section.key=value", help="override config values")
     ap.add_argument("--run-name", default="main")
+    ap.add_argument("--resume", action="store_true", help="continue from <checkpoint_dir>/<run>_resume.pt if it exists")
     ap.add_argument("--overfit_tiny", action="store_true", help="overfit one tiny batch (debug gate) and exit")
     args = ap.parse_args()
     cfg = apply_overrides(load_config(args.config), args.set)
@@ -206,7 +257,7 @@ def main():
         losses = run_overfit(cfg)
         print(f"\ninitial loss {losses[0]:.4f} -> final loss {losses[-1]:.4f}")
         return
-    train(cfg, run_name=args.run_name)
+    train(cfg, run_name=args.run_name, resume=args.resume)
 
 
 if __name__ == "__main__":

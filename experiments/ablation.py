@@ -62,14 +62,14 @@ def run_group(group: str, args, base_cfg, corpus_words) -> list[dict]:
         if cached and not args.force and cached["train_config"]["max_steps"] == args.steps and cached["model_config"]["d_model"] == want_d:
             print(f"[skip] {name} (cached, same steps/size)"); summary = cached
         else:
-            ov = [f"{key}={v}", f"train.max_steps={args.steps}", f"train.eval_interval={max(1, args.steps // 10)}",
+            ov = [f"{key}={v}", f"train.max_steps={args.steps}", f"train.eval_interval={max(1, args.steps // 10)}", f"train.save_interval={max(1, args.steps // 20)}",
                   f"train.sample_interval={args.steps}", "train.sample_tokens=100", f"train.eval_batches={args.eval_batches}",
                   f"train.out_dir={ABL_DIR}", f"train.checkpoint_dir={ABL_DIR / 'checkpoints'}", "train.log_interval=50"]
             if args.quick:
                 ov += ["model.d_model=64", "model.ffn_dim=256", "train.batch_size=16"]
             cfg = apply_overrides(base_cfg, ov)
             print(f"\n=== {name}: {key}={v} | steps={args.steps} ===")
-            summary = train(cfg, run_name=name, quiet=True)
+            summary = train(cfg, run_name=name, quiet=True, resume=True)   # resumes automatically after a timeout
             print(f"    params {summary['parameters']:,} | val loss {summary['final_val_loss']:.4f} | {summary['wall_clock_sec']}s")
         # generation-quality proxy from the best checkpoint of this run
         ckpt = ABL_DIR / "checkpoints" / f"{name}_best.pt"

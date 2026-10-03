@@ -43,7 +43,7 @@ The dataset (`data/input.txt`, 1.1 MB) is downloaded automatically on first use 
 ## 2. Verify the implementation (tests + architecture checks)
 
 ```bash
-python -m pytest -q                              # 29 tests: attention, causal mask, shapes, overfit, checkpoint reload, API
+python -m pytest -q                              # 31 tests: attention, causal mask, shapes, overfit, checkpoint reload, resume, API
 python experiments/hand_calculation.py           # Fig 1 + Fig 2: hand-calculated attention and causal mask
 python experiments/shape_trace.py                # Fig 3 (multi-head shape trace) + Fig 5 (model summary / parameter count)
 python experiments/positional_encoding_viz.py    # Fig 4
@@ -64,6 +64,9 @@ python -m src.train --set train.max_steps=3000 train.batch_size=32     # any con
 # CPU-friendly small model:
 python -m src.train --set model.d_model=128 model.ffn_dim=512 model.n_layers=4 train.max_steps=2000 train.batch_size=32
 ```
+
+**Timeouts (Colab):** add `--resume` and re-run the same command after a disconnect; the run continues from the last saved step
+(`checkpoints/main_resume.pt`, written every `train.save_interval` steps). Ablation runs always resume automatically.
 
 Outputs: `checkpoints/best.pt` (best validation loss), `checkpoints/last.pt`, `outputs/logs/main_log.csv`,
 `outputs/logs/main_summary.json` (params, hardware, wall-clock time, final train/val loss), `outputs/figures/main_loss_curve.png`
