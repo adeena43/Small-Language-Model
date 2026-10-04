@@ -5,7 +5,7 @@ multi-head attention, sinusoidal positional encoding, pre-LN decoder blocks, LM 
 sampling) and trained **from scratch** on **Tiny Shakespeare** (character level). No pretrained weights and no
 `transformers` model classes are used. The trained model is exposed through a CLI and a FastAPI service.
 
-> Course assignment: *AI Engineering — Transformer & GPT From Scratch* (handout in `docs/assignment.pdf`).
+> Course assignment: *AI Engineering — Transformer & GPT From Scratch* (handout in `docs/A1_AIE.pdf`).
 
 ## Repository map
 
