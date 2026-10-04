@@ -1,0 +1,34 @@
+MULTI-HEAD ATTENTION SHAPE TRACE   (B=2, T=6, d_model=32, n_heads=4, head_dim=8)
+  input x (B, T, D)                  (2, 6, 32)
+  q/k/v after Linear (B, T, D)       (2, 6, 32)
+  split heads q (B, H, T, d_h)       (2, 4, 6, 8)
+  attention weights (B, H, T, T)     (2, 4, 6, 6)
+  per-head output (B, H, T, d_h)     (2, 4, 6, 8)
+  merged / concatenated (B, T, D)    (2, 6, 32)
+  after output projection (B, T, D)  (2, 6, 32)
+W_q, W_k, W_v, W_o each: Linear(32 -> 32);  concatenating 4 heads of size 8 gives 32 again.
+
+MiniGPT model summary
+======================================================
+vocab_size        : 65
+context_length    : 128
+d_model           : 256
+n_heads           : 4  (head_dim = 64)
+n_layers          : 4
+ffn_dim           : 1024
+dropout           : 0.1
+position encoding : sinusoidal
+weight tying      : False
+------------------------------------------------------
+token embedding   :     16,640
+position encoding :          0  (fixed buffer, no parameters)
+each block (x4)   :    789,760
+  - attention     :    263,168
+  - feed-forward  :    525,568
+  - 2 LayerNorms  :      1,024
+final LayerNorm   :        512
+LM head           :     16,640
+------------------------------------------------------
+TOTAL parameters  :  3,192,832  (3.19M)
+
+forward check: idx (2, 128) -> logits (2, 128, 65), initial loss 4.212 (uniform guess = ln 65 = 4.174)

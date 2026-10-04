@@ -1,0 +1,67 @@
+Prompt: 'ROMEO:'
+Generated: ROMEO:
+You have now off, which you have senatory
+Of that Oxford called him and him us her to be
+Methink, endream, you fall to my more own procful
+I can this now in a griefe-sent in the sea,
+Who thou dest no
+model parameters: 3.19M
+context length: 128
+temperature: 0.8
+------------------------------------------------------------
+Prompt: 'To be, or not to be'
+Generated: To be, or not to be man!
+
+Provost:
+I am am a presued on him.
+
+SICINIUS:
+Why you love's not
+To this deserved sword to again Warwick,
+I prince to thee, and high him he poor of his but
+To blood the fire; sir. Who fit thy f
+model parameters: 3.19M
+context length: 128
+temperature: 0.8
+------------------------------------------------------------
+Prompt: 'KING HENRY:\nWhat say you'
+Generated: KING HENRY:
+What say you are the paint of York and friend!
+
+QUEEN ELIZABETH:
+That he may in the cause no much soldier for his need.
+
+QUEEN ELIZABETH:
+Madam, so a changed-speak between throaty who
+must he wilt welcome, with c
+model parameters: 3.19M
+context length: 128
+temperature: 0.8
+------------------------------------------------------------
+Prompt: 'The future of artificial intelligence'
+Generated: The future of artificial intelligence; for yours
+Do might. And as you all the sorrow and heavy.
+
+LEONTES:
+You would knock my soul in the world Richard:
+What's I have not the victory of more and wantom.
+
+ROMEO:
+The firest thou wife that I
+model parameters: 3.19M
+context length: 128
+temperature: 0.8
+------------------------------------------------------------
+Prompt: 'First Citizen:\nBefore we proceed'
+Generated: First Citizen:
+Before we proceed me to commons, this here's death,
+The milk but brother'd with the ever doom,
+And the rest the subjection that wilt of griet be
+All thee slake of the hands part.
+
+BENVOLIO:
+You the glory fly thee, or 
+model parameters: 3.19M
+context length: 128
+temperature: 0.8
+------------------------------------------------------------
