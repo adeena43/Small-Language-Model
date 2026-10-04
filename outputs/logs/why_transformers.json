@@ -1,0 +1,45 @@
+{
+  "rows": [
+    {
+      "T": 32,
+      "rnn_ms": 1.5910778000034043,
+      "attention_ms": 0.8802897999885317,
+      "rnn_sequential_steps": 32,
+      "attention_sequential_steps": 1,
+      "attention_matrix_MB": 0.125
+    },
+    {
+      "T": 64,
+      "rnn_ms": 3.1474387999878672,
+      "attention_ms": 2.9221305999953984,
+      "rnn_sequential_steps": 64,
+      "attention_sequential_steps": 1,
+      "attention_matrix_MB": 0.5
+    },
+    {
+      "T": 128,
+      "rnn_ms": 6.598220000000765,
+      "attention_ms": 6.123243799993361,
+      "rnn_sequential_steps": 128,
+      "attention_sequential_steps": 1,
+      "attention_matrix_MB": 2.0
+    },
+    {
+      "T": 256,
+      "rnn_ms": 12.44214319999628,
+      "attention_ms": 19.230756399997517,
+      "rnn_sequential_steps": 256,
+      "attention_sequential_steps": 1,
+      "attention_matrix_MB": 8.0
+    },
+    {
+      "T": 512,
+      "rnn_ms": 24.981985599993095,
+      "attention_ms": 108.59390359998997,
+      "rnn_sequential_steps": 512,
+      "attention_sequential_steps": 1,
+      "attention_matrix_MB": 32.0
+    }
+  ],
+  "note": "B=8, d_model=128, heads=4, CPU, forward only"
+}

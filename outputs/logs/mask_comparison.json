@@ -1,0 +1,25 @@
+{
+  "objective_example": [
+    "MLM (BERT): input  = to [MASK] or not [MASK] be",
+    "            targets = only at masked positions: {1: 'be', 4: 'to'}  (uses left AND right context)",
+    "CLM (GPT) : input  = to be or not to",
+    "            targets = be or not to be   (target[t] = input[t+1]; uses LEFT context only)"
+  ],
+  "leak_test": {
+    "causal": 0.0,
+    "bidirectional": 0.00041875243186950684
+  },
+  "training_experiment": {
+    "steps": 800,
+    "results": {
+      "causal (GPT)": {
+        "final_train_loss": 1.8900880694389344,
+        "val_loss": 1.9751529097557068
+      },
+      "bidirectional (BERT-like attention)": {
+        "final_train_loss": 0.04031598307192326,
+        "val_loss": 0.041048338264226915
+      }
+    }
+  }
+}
