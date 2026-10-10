@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MiniGPT</title>
+<link rel="icon" href="data:,">
+<style>*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0}.left-0{left:0}.right-0{right:0}.top-0{top:0}.z-0{z-index:0}.z-10{z-index:10}.mx-auto{margin-left:auto;margin-right:auto}.ml-0\.5{margin-left:.125rem}.mt-6{margin-top:1.5rem}.inline-block{display:inline-block}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-16{height:4rem}.h-4{height:1rem}.h-\[2px\]{height:2px}.h-full{height:100%}.h-px{height:1px}.min-h-\[380px\]{min-height:380px}.min-h-screen{min-height:100vh}.w-1\.5{width:.375rem}.w-16{width:4rem}.w-4{width:1rem}.w-full{width:100%}.max-w-3xl{max-width:48rem}.max-w-6xl{max-width:72rem}.flex-1{flex:1 1 0%}.transform{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-pointer{cursor:pointer}.select-none{-webkit-user-select:none;-moz-user-select:none;user-select:none}.resize-none{resize:none}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-center{align-items:center}.items-baseline{align-items:baseline}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1{gap:.25rem}.gap-1\.5{gap:.375rem}.gap-12{gap:3rem}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.overflow-hidden{overflow:hidden}.whitespace-pre-wrap{white-space:pre-wrap}.rounded-\[4px\]{border-radius:4px}.rounded-\[6px\]{border-radius:6px}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-\[\#8B6FD6\]\/15{border-color:rgba(139,111,214,.15)}.border-\[\#8B6FD6\]\/20{border-color:rgba(139,111,214,.2)}.border-\[\#8B6FD6\]\/25{border-color:rgba(139,111,214,.25)}.border-\[\#8B6FD6\]\/30{border-color:rgba(139,111,214,.3)}.bg-\[\#0E0C14\]{--tw-bg-opacity:1;background-color:rgb(14 12 20/var(--tw-bg-opacity,1))}.bg-\[\#110F18\]{--tw-bg-opacity:1;background-color:rgb(17 15 24/var(--tw-bg-opacity,1))}.bg-\[\#8B6FD6\]{--tw-bg-opacity:1;background-color:rgb(139 111 214/var(--tw-bg-opacity,1))}.bg-\[\#8B6FD6\]\/15{background-color:rgba(139,111,214,.15)}.bg-\[radial-gradient\(ellipse_80\%_60\%_at_50\%_-10\%\2c \#2A1748\2c transparent_75\%\)\]{background-image:radial-gradient(ellipse 80% 60% at 50% -10%,#2a1748,transparent 75%)}.bg-gradient-to-b{background-image:linear-gradient(to bottom,var(--tw-gradient-stops))}.bg-gradient-to-r{background-image:linear-gradient(to right,var(--tw-gradient-stops))}.from-\[\#8B6FD6\]\/35{--tw-gradient-from:rgba(139,111,214,.35) var(--tw-gradient-from-position);--tw-gradient-to:rgba(139,111,214,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-transparent{--tw-gradient-from:transparent var(--tw-gradient-from-position);--tw-gradient-to:transparent var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.via-\[\#8B6FD6\]{--tw-gradient-to:rgba(139,111,214,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),#8b6fd6 var(--tw-gradient-via-position),var(--tw-gradient-to)}.via-\[\#8B6FD6\]\/15{--tw-gradient-to:rgba(139,111,214,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),rgba(139,111,214,.15) var(--tw-gradient-via-position),var(--tw-gradient-to)}.to-\[\#8B6FD6\]\/5{--tw-gradient-to:rgba(139,111,214,.05) var(--tw-gradient-to-position)}.to-transparent{--tw-gradient-to:transparent var(--tw-gradient-to-position)}.p-3{padding:.75rem}.p-6{padding:1.5rem}.p-\[1px\]{padding:1px}.px-2{padding-left:.5rem;padding-right:.5rem}.px-2\.5{padding-left:.625rem;padding-right:.625rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-0\.5{padding-top:.125rem;padding-bottom:.125rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-12{padding-top:3rem;padding-bottom:3rem}.py-2\.5{padding-top:.625rem;padding-bottom:.625rem}.pt-1{padding-top:.25rem}.pt-10{padding-top:2.5rem}.pt-2{padding-top:.5rem}.pt-6{padding-top:1.5rem}.text-center{text-align:center}.text-right{text-align:right}.align-middle{vertical-align:middle}.text-2xl{font-size:1.5rem;line-height:2rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xs{font-size:.75rem;line-height:1rem}.uppercase{text-transform:uppercase}.italic{font-style:italic}.leading-relaxed{line-height:1.625}.leading-snug{line-height:1.375}.tracking-\[0\.2em\]{letter-spacing:.2em}.tracking-wide{letter-spacing:.025em}.tracking-wider{letter-spacing:.05em}.text-\[\#8B6FD6\]{--tw-text-opacity:1;color:rgb(139 111 214/var(--tw-text-opacity,1))}.text-\[\#9A93A8\]{--tw-text-opacity:1;color:rgb(154 147 168/var(--tw-text-opacity,1))}.text-\[\#9A93A8\]\/80{color:rgba(154,147,168,.8)}.text-\[\#ECE8F2\]{--tw-text-opacity:1;color:rgb(236 232 242/var(--tw-text-opacity,1))}.text-\[\#d98fa6\]{--tw-text-opacity:1;color:rgb(217 143 166/var(--tw-text-opacity,1))}.placeholder-\[\#9A93A8\]\/40::-moz-placeholder{color:rgba(154,147,168,.4)}.placeholder-\[\#9A93A8\]\/40::placeholder{color:rgba(154,147,168,.4)}.transition-colors{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.ease-in-out{transition-timing-function:cubic-bezier(.4,0,.2,1)}.selection\:bg-\[\#8B6FD6\]\/30 ::-moz-selection{background-color:rgba(139,111,214,.3)}.selection\:bg-\[\#8B6FD6\]\/30 ::selection{background-color:rgba(139,111,214,.3)}.selection\:bg-\[\#8B6FD6\]\/30::-moz-selection{background-color:rgba(139,111,214,.3)}.selection\:bg-\[\#8B6FD6\]\/30::selection{background-color:rgba(139,111,214,.3)}.hover\:border-\[\#8B6FD6\]:hover{--tw-border-opacity:1;border-color:rgb(139 111 214/var(--tw-border-opacity,1))}.hover\:bg-\[\#9d84e0\]:hover{--tw-bg-opacity:1;background-color:rgb(157 132 224/var(--tw-bg-opacity,1))}.hover\:text-\[\#8B6FD6\]:hover{--tw-text-opacity:1;color:rgb(139 111 214/var(--tw-text-opacity,1))}.hover\:text-\[\#ECE8F2\]:hover{--tw-text-opacity:1;color:rgb(236 232 242/var(--tw-text-opacity,1))}.hover\:underline:hover{text-decoration-line:underline}.focus\:border-\[\#8B6FD6\]:focus{--tw-border-opacity:1;border-color:rgb(139 111 214/var(--tw-border-opacity,1))}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.disabled\:cursor-wait:disabled{cursor:wait}.disabled\:opacity-60:disabled{opacity:.6}@media (min-width:768px){.md\:grid-cols-5{grid-template-columns:repeat(5,minmax(0,1fr))}.md\:border-l{border-left-width:1px}.md\:border-\[\#8B6FD6\]\/20{border-color:rgba(139,111,214,.2)}.md\:pl-4{padding-left:1rem}.md\:text-5xl{font-size:3rem;line-height:1}.md\:text-xl{font-size:1.25rem;line-height:1.75rem}}@media (min-width:1024px){.lg\:col-span-5{grid-column:span 5/span 5}.lg\:col-span-7{grid-column:span 7/span 7}.lg\:grid-cols-12{grid-template-columns:repeat(12,minmax(0,1fr))}}</style>
+<style>
+  * { font-family: 'Times New Roman', Times, serif !important; }
+  body { background-color: #0B0A10; color: #ECE8F2; overflow-x: hidden; }
+  input[type=range] { accent-color: #8B6FD6; }
+  input[type=checkbox] { accent-color: #8B6FD6; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+  .cursor-blink { animation: blink 1s infinite; }
+  @keyframes sweep { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+  .loading-line { animation: sweep 1.2s ease-in-out infinite; }
+  .hidden-state { display: none; }
+</style>
+</head>
+<body class="min-h-screen relative flex flex-col selection:bg-[#8B6FD6]/30">
+<div class="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,#2A1748,transparent_75%)]"></div>
+
+<!-- Top bar -->
+<header class="relative z-10 w-full border-b border-[#8B6FD6]/20">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="#" class="text-2xl italic tracking-wide text-[#ECE8F2] hover:text-[#8B6FD6] transition-colors">MiniGPT</a>
+    <a href="https://github.com/adeena43/Small-Language-Model" target="_blank" rel="noopener noreferrer"
+       class="text-base text-[#9A93A8] hover:text-[#ECE8F2] transition-colors tracking-wide">GitHub</a>
+  </div>
+</header>
+
+<main class="relative z-10 flex-1 max-w-6xl mx-auto w-full px-6 py-12 flex flex-col gap-12">
+
+  <!-- Intro -->
+  <section class="flex flex-col gap-3 max-w-3xl">
+    <h1 class="text-4xl md:text-5xl text-[#ECE8F2] tracking-wide">MiniGPT</h1>
+    <p class="text-lg md:text-xl italic text-[#9A93A8]">A Transformer language model, built from scratch and trained on Shakespeare&rsquo;s plays.</p>
+    <p class="text-xs uppercase tracking-[0.2em] text-[#9A93A8]/80 pt-1">3.2M parameters &middot; 128-character memory &middot; trained in 6 minutes</p>
+  </section>
+
+  <!-- Writing interface -->
+  <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+    <!-- Controls -->
+    <div class="lg:col-span-5 flex flex-col gap-6 bg-[#110F18] p-6 rounded-[6px] border border-[#8B6FD6]/20">
+      <div class="flex flex-col gap-2">
+        <label for="prompt-input" class="text-lg italic text-[#ECE8F2]">Begin the scene</label>
+        <textarea id="prompt-input" rows="3" maxlength="1000" placeholder="ROMEO:"
+          class="w-full bg-[#0E0C14] text-[#ECE8F2] text-base p-3 rounded-[6px] border border-[#8B6FD6]/20 focus:border-[#8B6FD6] focus:outline-none resize-none placeholder-[#9A93A8]/40">ROMEO:</textarea>
+        <div class="flex flex-wrap gap-2 pt-1">
+          <button type="button" data-prompt="ROMEO:" class="chip px-2.5 py-1 text-xs rounded-[6px] border border-[#8B6FD6]/25 bg-[#0E0C14] text-[#9A93A8] hover:text-[#ECE8F2] hover:border-[#8B6FD6] transition-colors">ROMEO:</button>
+          <button type="button" data-prompt="To be, or not to be" class="chip px-2.5 py-1 text-xs rounded-[6px] border border-[#8B6FD6]/25 bg-[#0E0C14] text-[#9A93A8] hover:text-[#ECE8F2] hover:border-[#8B6FD6] transition-colors">To be, or not to be</button>
+          <button type="button" data-prompt="KING HENRY:&#10;What say you" class="chip px-2.5 py-1 text-xs rounded-[6px] border border-[#8B6FD6]/25 bg-[#0E0C14] text-[#9A93A8] hover:text-[#ECE8F2] hover:border-[#8B6FD6] transition-colors">KING HENRY: What say you</button>
+        </div>
+      </div>
+
+      <div class="h-px bg-[#8B6FD6]/15 w-full"></div>
+
+      <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-1.5">
+          <div class="flex justify-between items-baseline">
+            <span class="text-base italic text-[#ECE8F2]">Temperature</span>
+            <span id="temp-display" class="text-sm text-[#8B6FD6]">0.8</span>
+          </div>
+          <input id="temp-slider" type="range" min="0.1" max="1.5" step="0.1" value="0.8" class="w-full cursor-pointer"/>
+          <div class="flex justify-between text-xs text-[#9A93A8]"><span>careful</span><span>wild</span></div>
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <div class="flex justify-between items-baseline">
+            <span class="text-base italic text-[#ECE8F2]">Length</span>
+            <span id="length-display" class="text-sm text-[#8B6FD6]">200 characters</span>
+          </div>
+          <input id="length-slider" type="range" min="50" max="500" step="10" value="200" class="w-full cursor-pointer"/>
+        </div>
+
+        <div class="flex items-center justify-between pt-1">
+          <label class="flex items-center gap-2 cursor-pointer select-none">
+            <input id="topk-toggle" type="checkbox" class="w-4 h-4 cursor-pointer"/>
+            <span class="text-base italic text-[#9A93A8]">Use top-k sampling</span>
+          </label>
+          <input id="topk-value" type="number" min="1" max="65" value="40" aria-label="k value"
+            class="hidden-state w-16 bg-[#0E0C14] text-[#ECE8F2] text-sm px-2 py-0.5 rounded-[4px] border border-[#8B6FD6]/30 focus:border-[#8B6FD6] focus:outline-none text-right"/>
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <button id="write-button" type="button"
+          class="w-full py-2.5 px-4 rounded-[6px] bg-[#8B6FD6] hover:bg-[#9d84e0] disabled:opacity-60 disabled:cursor-wait text-[#ECE8F2] text-lg italic tracking-wider transition-colors">Write</button>
+        <p id="input-error" class="hidden-state text-sm text-[#d98fa6] pt-2">Write a first line before asking the model to continue.</p>
+      </div>
+    </div>
+
+    <!-- Output -->
+    <div class="lg:col-span-7 flex flex-col gap-2">
+      <div class="text-lg italic text-[#ECE8F2]">The model writes</div>
+      <div class="p-[1px] rounded-[6px] bg-gradient-to-b from-[#8B6FD6]/35 via-[#8B6FD6]/15 to-[#8B6FD6]/5">
+        <div class="relative overflow-hidden bg-[#110F18] rounded-[6px] p-6 min-h-[380px] flex flex-col justify-between">
+          <div id="loading-bar" class="hidden-state absolute top-0 left-0 right-0 h-[2px]">
+            <div class="loading-line h-full w-full bg-gradient-to-r from-transparent via-[#8B6FD6] to-transparent"></div>
+          </div>
+
+          <!-- Empty -->
+          <div id="view-empty" class="flex-1 flex items-center justify-center text-center">
+            <p class="text-lg italic text-[#9A93A8]/80">Nothing written yet. Give the model a first line.</p>
+          </div>
+
+          <!-- Output -->
+          <div id="view-output" class="hidden-state text-base leading-relaxed whitespace-pre-wrap"><span id="output-prompt" class="text-[#8B6FD6]"></span><span id="output-text" class="text-[#ECE8F2]"></span><span id="caret" class="inline-block w-1.5 h-4 ml-0.5 bg-[#8B6FD6] align-middle cursor-blink"></span></div>
+
+          <!-- Error -->
+          <div id="view-error" class="hidden-state flex-1 flex flex-col items-center justify-center text-center gap-3">
+            <p id="error-text" class="text-lg italic text-[#9A93A8]">The model is waking up. Free servers sleep when idle; try again in a moment.</p>
+            <button id="retry-button" type="button" class="text-sm text-[#8B6FD6] hover:underline">Try again</button>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-[#8B6FD6]/15 text-xs text-[#9A93A8]">
+            <span id="output-meta">&nbsp;</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center gap-6 pt-2">
+        <button id="copy-btn" type="button" class="text-sm text-[#9A93A8] hover:text-[#ECE8F2] transition-colors tracking-wide">Copy</button>
+        <button id="regen-btn" type="button" class="text-sm text-[#9A93A8] hover:text-[#ECE8F2] transition-colors tracking-wide">Regenerate</button>
+        <button id="clear-btn" type="button" class="text-sm text-[#9A93A8] hover:text-[#ECE8F2] transition-colors tracking-wide">Clear</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="flex flex-col gap-6 pt-10 border-t border-[#8B6FD6]/15">
+    <h2 class="text-2xl italic text-[#ECE8F2]">How it works</h2>
+    <ol class="grid grid-cols-1 md:grid-cols-5 gap-6">
+      <li class="flex flex-col gap-1 md:border-l md:border-[#8B6FD6]/20 md:pl-4"><span class="text-xs tracking-[0.2em] text-[#8B6FD6]">01</span><span class="text-base text-[#ECE8F2]">Characters</span><span class="text-sm text-[#9A93A8] leading-snug">Text is split into single characters, 65 in total.</span></li>
+      <li class="flex flex-col gap-1 md:border-l md:border-[#8B6FD6]/20 md:pl-4"><span class="text-xs tracking-[0.2em] text-[#8B6FD6]">02</span><span class="text-base text-[#ECE8F2]">Embeddings</span><span class="text-sm text-[#9A93A8] leading-snug">Each becomes a 256-dimensional vector, plus a sinusoidal position signal.</span></li>
+      <li class="flex flex-col gap-1 md:border-l md:border-[#8B6FD6]/20 md:pl-4"><span class="text-xs tracking-[0.2em] text-[#8B6FD6]">03</span><span class="text-base text-[#ECE8F2]">4 Transformer blocks</span><span class="text-sm text-[#9A93A8] leading-snug">Causal self-attention with 4 heads, then a feed-forward layer.</span></li>
+      <li class="flex flex-col gap-1 md:border-l md:border-[#8B6FD6]/20 md:pl-4"><span class="text-xs tracking-[0.2em] text-[#8B6FD6]">04</span><span class="text-base text-[#ECE8F2]">Probabilities</span><span class="text-sm text-[#9A93A8] leading-snug">A score for each of the 65 possible next characters.</span></li>
+      <li class="flex flex-col gap-1 md:border-l md:border-[#8B6FD6]/20 md:pl-4"><span class="text-xs tracking-[0.2em] text-[#8B6FD6]">05</span><span class="text-base text-[#ECE8F2]">Text</span><span class="text-sm text-[#9A93A8] leading-snug">One character is sampled, added, and the loop repeats.</span></li>
+    </ol>
+  </section>
+</main>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const promptInput = $('prompt-input'), tempSlider = $('temp-slider'), lengthSlider = $('length-slider');
+  const topkToggle = $('topk-toggle'), topkValue = $('topk-value'), writeBtn = $('write-button');
+  let typingTimer = null, lastPrompt = '', lastText = '';
+
+  function show(view) {
+    ['view-empty', 'view-output', 'view-error'].forEach(v => $(v).classList.toggle('hidden-state', v !== view));
+  }
+  function setLoading(on) {
+    $('loading-bar').classList.toggle('hidden-state', !on);
+    writeBtn.disabled = on;
+    writeBtn.textContent = on ? 'Writing…' : 'Write';
+  }
+
+  document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {
+    promptInput.value = c.dataset.prompt; promptInput.focus(); $('input-error').classList.add('hidden-state');
+  }));
+  promptInput.addEventListener('input', () => $('input-error').classList.add('hidden-state'));
+  tempSlider.addEventListener('input', () => $('temp-display').textContent = parseFloat(tempSlider.value).toFixed(1));
+  lengthSlider.addEventListener('input', () => $('length-display').textContent = lengthSlider.value + ' characters');
+  topkToggle.addEventListener('change', () => topkValue.classList.toggle('hidden-state', !topkToggle.checked));
+
+  async function write() {
+    const prompt = promptInput.value;
+    if (!prompt.trim()) { $('input-error').classList.remove('hidden-state'); promptInput.focus(); return; }
+    if (typingTimer) clearInterval(typingTimer);
+    const temperature = parseFloat(tempSlider.value);
+    const body = { prompt, max_new_tokens: parseInt(lengthSlider.value, 10), temperature };
+    if (topkToggle.checked) {
+      const k = Math.min(65, Math.max(1, parseInt(topkValue.value, 10) || 40));
+      topkValue.value = k; body.top_k = k;
+    }
+
+    show('view-output');
+    $('output-prompt').textContent = prompt; $('output-text').textContent = '';
+    $('output-meta').textContent = 'Writing…';
+    setLoading(true);
+    const t0 = performance.now();
+    try {
+      const res = await fetch('/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      if (!res.ok) throw new Error(res.status === 503 ? 'asleep' : 'failed');
+      const data = await res.json();
+      const secs = ((performance.now() - t0) / 1000).toFixed(1);
+      lastPrompt = prompt; lastText = data.completion;
+      setLoading(false);
+      let i = 0;
+      typingTimer = setInterval(() => {
+        if (i < lastText.length) { $('output-text').textContent += lastText[i++]; }
+        else {
+          clearInterval(typingTimer); typingTimer = null;
+          $('output-meta').textContent = `Generated in ${secs} s · temperature ${temperature.toFixed(1)}` +
+            (body.top_k ? ` · top-k ${body.top_k}` : '') + (data.note ? ` · ${data.note}` : '');
+        }
+      }, 12);
+    } catch (e) {
+      setLoading(false);
+      $('error-text').textContent = e.message === 'failed'
+        ? 'Something went wrong. Please try again.'
+        : 'The model is waking up. Free servers sleep when idle; try again in a moment.';
+      $('output-meta').innerHTML = '&nbsp;';
+      show('view-error');
+    }
+  }
+
+  writeBtn.addEventListener('click', write);
+  $('regen-btn').addEventListener('click', write);
+  $('retry-button').addEventListener('click', write);
+  promptInput.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) write(); });
+
+  $('clear-btn').addEventListener('click', () => {
+    if (typingTimer) clearInterval(typingTimer);
+    lastPrompt = lastText = ''; $('output-meta').innerHTML = '&nbsp;'; show('view-empty');
+  });
+  $('copy-btn').addEventListener('click', () => {
+    const text = lastPrompt + lastText;
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => {
+      $('copy-btn').textContent = 'Copied';
+      setTimeout(() => $('copy-btn').textContent = 'Copy', 1200);
+    });
+  });
+</script>
+</body>
+</html>

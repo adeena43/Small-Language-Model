@@ -1,5 +1,6 @@
 """FastAPI inference service.
 
+Web page    :  GET /  (src/static/index.html)   |   API docs: /docs
 Run locally :  uvicorn src.api:app --reload
 Render start:  uvicorn src.api:app --host 0.0.0.0 --port $PORT
 
@@ -17,6 +18,7 @@ from contextlib import asynccontextmanager
 
 import torch
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
 from src.generate import generate_text
@@ -70,7 +72,13 @@ def health():
     return {"status": "ok" if STATE.get("model") is not None else "model_not_loaded", "detail": STATE.get("error")}
 
 
-@app.get("/")
+@app.get("/", include_in_schema=False)
+def home():
+    """The web page (src/static/index.html) that calls POST /generate."""
+    return FileResponse(resolve("src/static/index.html"))
+
+
+@app.get("/info")
 def info():
     model, _ = _require_model()
     return {"name": "MiniGPT", "parameters": model.count_parameters(), "context_length": model.context_length,
