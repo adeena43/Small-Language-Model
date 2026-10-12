@@ -15,7 +15,7 @@ sampling) and trained **from scratch** on **Tiny Shakespeare** (character level)
 | Technical report (Medium article) | [Building a Small GPT from Scratch](https://medium.com/@hf.rashid01/building-a-small-gpt-from-scratch-afb5f7720148) |
 | Technical report (PDF) | [`report/MiniGPT_Report.pdf`](report/MiniGPT_Report.pdf) |
 | Colab notebook | [Open in Colab](https://colab.research.google.com/github/adeena43/Small-Language-Model/blob/main/notebooks/colab_demo.ipynb) · [`notebooks/colab_demo.ipynb`](notebooks/colab_demo.ipynb) |
-| Demo video | [Watch on Google Drive](https://drive.google.com/file/d/19bNzfXgW0sel1BA62IG9oB-tnQTws90m/view?usp=drive_link) |
+| Demo video | [Watch on Google Drive](https://drive.google.com/file/d/12Fz9Kul66bvWyPjuvWmHOaw0hrOdSNCV/view?usp=sharing) |
 | Trained checkpoint | [`checkpoints/best.pt`](checkpoints/best.pt) |
 
 The live demo runs on a free Hugging Face Space: the first request after it has been idle can take a little longer while the Space restarts.
