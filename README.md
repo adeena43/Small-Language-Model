@@ -15,7 +15,7 @@ sampling) and trained **from scratch** on **Tiny Shakespeare** (character level)
 | Live demo (web page + API) | **LIVE_URL** (free Render instance: the first request after it sleeps can take 30 to 60 s) |
 | Technical report (Medium) | **MEDIUM_URL** |
 | Report (PDF) | [`report/report.pdf`](report/report.pdf) |
-| Colab notebook | [`notebooks/colab_demo.ipynb`](notebooks/colab_demo.ipynb) · **COLAB_URL** |
+| Colab notebook | [Open in Colab](https://colab.research.google.com/github/adeena43/Small-Language-Model/blob/main/notebooks/colab_demo.ipynb) · [`notebooks/colab_demo.ipynb`](notebooks/colab_demo.ipynb) |
 | Demo video | **VIDEO_URL** |
 
 ## Repository map
