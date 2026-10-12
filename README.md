@@ -11,12 +11,11 @@ sampling) and trained **from scratch** on **Tiny Shakespeare** (character level)
 
 | Deliverable | Link |
 |---|---|
-| Live demo (web page + API) | |
-| Technical report (Medium article) | |
-| Technical report (PDF) | [`report/report.pdf`](report/report.pdf) |
+| Live demo (web page + API) | [adeena43-slm.hf.space](https://adeena43-slm.hf.space) |
+| Technical report (Medium article) | [Building a Small GPT from Scratch](https://medium.com/@hf.rashid01/building-a-small-gpt-from-scratch-afb5f7720148) |
+| Technical report (PDF) | [`report/report.pdf`](report/MiniGPT_Report.pdf) |
 | Colab notebook | [Open in Colab](https://colab.research.google.com/github/adeena43/Small-Language-Model/blob/main/notebooks/colab_demo.ipynb) · [`notebooks/colab_demo.ipynb`](notebooks/colab_demo.ipynb) |
 | Demo video | |
-| Class presentation | |
 | Trained checkpoint | [`checkpoints/best.pt`](checkpoints/best.pt) |
 
 The live demo runs on a free Render instance: the first request after it has been idle can take 30 to 60 seconds.
