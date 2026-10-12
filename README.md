@@ -6,7 +6,6 @@ sampling) and trained **from scratch** on **Tiny Shakespeare** (character level)
 `transformers` model classes are used. The trained model is exposed through a CLI and a FastAPI service.
 
 > Course assignment: *AI Engineering — Transformer & GPT From Scratch* (handout in `docs/A1_AIE.pdf`).
-> Team: Hafsa Rashid (23K-0064), Adina Faraz (23K-0008), Muneeb ur Rehman (23K-0038) · Instructor: Mr. Farhan Feroze
 
 ## Links
 
@@ -15,7 +14,7 @@ sampling) and trained **from scratch** on **Tiny Shakespeare** (character level)
 | Live demo (web page + API) | **LIVE_URL** (free Render instance: the first request after it sleeps can take 30 to 60 s) |
 | Technical report (Medium) | **MEDIUM_URL** |
 | Report (PDF) | [`report/report.pdf`](report/report.pdf) |
-| Colab notebook | [`notebooks/colab_demo.ipynb`](notebooks/colab_demo.ipynb) · **COLAB_URL** |
+| Colab notebook | [Open in Colab](https://colab.research.google.com/github/adeena43/Small-Language-Model/blob/main/notebooks/colab_demo.ipynb) · [`notebooks/colab_demo.ipynb`](notebooks/colab_demo.ipynb) |
 | Demo video | **VIDEO_URL** |
 
 ## Repository map
@@ -189,4 +188,3 @@ Live URL: **LIVE_URL**
 * Hendrycks & Gimpel (GELU); Ba et al. (LayerNorm).
 * Course material: `rohitg00/ai-engineering-from-scratch`, `phases/07-transformers-deep-dive` (lessons 02–07), used for concepts only.
 * Dataset: Tiny Shakespeare, <https://huggingface.co/datasets/karpathy/tiny_shakespeare>.
-* **Use of AI tools:** AI_STATEMENT
