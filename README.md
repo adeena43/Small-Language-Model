@@ -9,13 +9,17 @@ sampling) and trained **from scratch** on **Tiny Shakespeare** (character level)
 
 ## Links
 
-| | |
+| Deliverable | Link |
 |---|---|
-| Live demo (web page + API) | **LIVE_URL** (free Render instance: the first request after it sleeps can take 30 to 60 s) |
-| Technical report (Medium) | **MEDIUM_URL** |
-| Report (PDF) | [`report/report.pdf`](report/report.pdf) |
+| Live demo (web page + API) | |
+| Technical report (Medium article) | |
+| Technical report (PDF) | [`report/report.pdf`](report/report.pdf) |
 | Colab notebook | [Open in Colab](https://colab.research.google.com/github/adeena43/Small-Language-Model/blob/main/notebooks/colab_demo.ipynb) · [`notebooks/colab_demo.ipynb`](notebooks/colab_demo.ipynb) |
-| Demo video | **VIDEO_URL** |
+| Demo video | |
+| Class presentation | |
+| Trained checkpoint | [`checkpoints/best.pt`](checkpoints/best.pt) |
+
+The live demo runs on a free Render instance: the first request after it has been idle can take 30 to 60 seconds.
 
 ## Repository map
 
@@ -139,7 +143,7 @@ Environment variables: `CHECKPOINT_PATH` (default `checkpoints/best.pt`), `CHECK
 5. Environment: `PYTHON_VERSION=3.11.9`. Health check path: `/health`.
 6. Open `https://<your-service>.onrender.com` for the web page, or `/docs` for the API. (Free instances sleep when idle, so open the URL a minute before a demo.)
 
-Live URL: **LIVE_URL**
+Live URL: see the [Links](#links) table at the top.
 
 ## 7. Configuration (`configs/tiny_gpt.yaml`, all overridable with `--set section.key=value`)
 
