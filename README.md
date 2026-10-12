@@ -11,15 +11,14 @@ sampling) and trained **from scratch** on **Tiny Shakespeare** (character level)
 
 | Deliverable | Link |
 |---|---|
-| Live demo (web page + API) | |
-| Technical report (Medium article) | |
-| Technical report (PDF) | [`report/report.pdf`](report/report.pdf) |
+| Live demo (web page + API) | [adeena43-slm.hf.space](https://adeena43-slm.hf.space) |
+| Technical report (Medium article) | [Building a Small GPT from Scratch](https://medium.com/@hf.rashid01/building-a-small-gpt-from-scratch-afb5f7720148) |
+| Technical report (PDF) | [`report/MiniGPT_Report.pdf`](report/MiniGPT_Report.pdf) |
 | Colab notebook | [Open in Colab](https://colab.research.google.com/github/adeena43/Small-Language-Model/blob/main/notebooks/colab_demo.ipynb) · [`notebooks/colab_demo.ipynb`](notebooks/colab_demo.ipynb) |
 | Demo video | |
-| Class presentation | |
 | Trained checkpoint | [`checkpoints/best.pt`](checkpoints/best.pt) |
 
-The live demo runs on a free Render instance: the first request after it has been idle can take 30 to 60 seconds.
+The live demo runs on a free Hugging Face Space: the first request after it has been idle can take a little longer while the Space restarts.
 
 ## Repository map
 
@@ -135,7 +134,7 @@ Endpoints: `GET /` (web page), `GET /info`, `GET /health`, `POST /generate` (`pr
 
 Environment variables: `CHECKPOINT_PATH` (default `checkpoints/best.pt`), `CHECKPOINT_URL` (optional download URL if the checkpoint is not in the repo).
 
-### Deploy on Render
+### Deploy on Hugging Face Spaces
 1. Commit `checkpoints/best.pt` (a few MB; `.gitignore` allows exactly this file) and push to GitHub.
 2. Render → **New → Web Service** → connect the repo (or use the included `render.yaml` Blueprint).
 3. Build command: `pip install torch --index-url https://download.pytorch.org/whl/cpu && pip install -r requirements.txt`
