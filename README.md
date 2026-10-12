@@ -6,6 +6,17 @@ sampling) and trained **from scratch** on **Tiny Shakespeare** (character level)
 `transformers` model classes are used. The trained model is exposed through a CLI and a FastAPI service.
 
 > Course assignment: *AI Engineering — Transformer & GPT From Scratch* (handout in `docs/A1_AIE.pdf`).
+> Team: Hafsa Rashid (23K-0064), Adina Faraz (23K-0008), Muneeb ur Rehman (23K-0038) · Instructor: Mr. Farhan Feroze
+
+## Links
+
+| | |
+|---|---|
+| Live demo (web page + API) | **LIVE_URL** (free Render instance: the first request after it sleeps can take 30 to 60 s) |
+| Technical report (Medium) | **MEDIUM_URL** |
+| Report (PDF) | [`report/report.pdf`](report/report.pdf) |
+| Colab notebook | [`notebooks/colab_demo.ipynb`](notebooks/colab_demo.ipynb) · **COLAB_URL** |
+| Demo video | **VIDEO_URL** |
 
 ## Repository map
 
@@ -20,12 +31,13 @@ sampling) and trained **from scratch** on **Tiny Shakespeare** (character level)
 | Training loop (AdamW, warmup+cosine, logging, checkpoints, overfit gate) | `src/train.py` |
 | Generation CLI | `src/generate.py` |
 | REST API (FastAPI) | `src/api.py` |
+| Web page (served at `/`, calls `POST /generate`) | `src/static/index.html` |
 | Config | `configs/tiny_gpt.yaml` |
 | Unit tests | `tests/` |
 | Experiments / evidence figures | `experiments/` → results in `outputs/` |
 | Colab runner | `notebooks/colab_demo.ipynb` |
 | Viva-ready explanation of every component | `docs/EXPLAINER.md` |
-| Technical report (Medium article + PDF export) | `report/` |
+| Technical report (PDF), handwritten calculation and screenshots | `report/` |
 
 ## 1. Setup
 
@@ -109,11 +121,14 @@ Note for the *context length* experiment: batch size is held constant, so longer
 ## 6. API (FastAPI)
 
 ```bash
-uvicorn src.api:app --reload                      # http://127.0.0.1:8000/docs
+uvicorn src.api:app --reload                      # web page: http://127.0.0.1:8000   API docs: /docs
 curl http://127.0.0.1:8000/health
+curl http://127.0.0.1:8000/info                   # model info (parameters, context length, ...)
 curl -X POST http://127.0.0.1:8000/generate -H "Content-Type: application/json" \
      -d '{"prompt": "ROMEO:", "max_new_tokens": 120, "temperature": 0.8}'
 ```
+
+Endpoints: `GET /` (web page), `GET /info`, `GET /health`, `POST /generate` (`prompt`, `max_new_tokens`, `temperature`, optional `top_k`, `seed`).
 
 Environment variables: `CHECKPOINT_PATH` (default `checkpoints/best.pt`), `CHECKPOINT_URL` (optional download URL if the checkpoint is not in the repo).
 
@@ -123,9 +138,9 @@ Environment variables: `CHECKPOINT_PATH` (default `checkpoints/best.pt`), `CHECK
 3. Build command: `pip install torch --index-url https://download.pytorch.org/whl/cpu && pip install -r requirements.txt`
 4. Start command: `uvicorn src.api:app --host 0.0.0.0 --port $PORT`
 5. Environment: `PYTHON_VERSION=3.11.9`. Health check path: `/health`.
-6. Open `https://<your-service>.onrender.com/docs`. (Free instances sleep when idle — open the URL a minute before a demo.)
+6. Open `https://<your-service>.onrender.com` for the web page, or `/docs` for the API. (Free instances sleep when idle, so open the URL a minute before a demo.)
 
-Live URL: **<fill in after deployment>**
+Live URL: **LIVE_URL**
 
 ## 7. Configuration (`configs/tiny_gpt.yaml`, all overridable with `--set section.key=value`)
 
@@ -148,16 +163,16 @@ Live URL: **<fill in after deployment>**
 
 | Fig | Evidence | File |
 |---|---|---|
-| 1 | Hand-calculated attention | `outputs/figures/fig1_hand_attention.png`, `outputs/logs/hand_calculation.txt` |
+| 1 | Hand-calculated attention | handwritten: `report/figures/hand_p1.jpg` to `hand_p5.jpg`; reproduced by code: `outputs/figures/fig1_hand_attention.png`, `outputs/logs/hand_calculation.txt` |
 | 2 | Causal mask | `outputs/figures/fig2_causal_mask.png` |
-| 3 | Multi-head shape trace | `outputs/logs/shape_trace_and_summary.txt` (terminal screenshot of `experiments/shape_trace.py`) |
+| 3 | Multi-head shape trace | `report/figures/fig3_shape_trace.png`, `outputs/logs/shape_trace_and_summary.txt` |
 | 4 | Positional encoding | `outputs/figures/fig4_positional_encoding.png` |
-| 5 | Model summary / parameter count | printed by `src.train` and `experiments/shape_trace.py` |
+| 5 | Model summary / parameter count | `report/figures/fig5_model_summary.png` (3,192,832 parameters) |
 | 6 | Train vs validation loss | `outputs/figures/main_loss_curve.png` |
 | 7 | Attention visualisation (trained model) | `outputs/figures/fig7_attention_visualization.png` |
 | 8 | Generation samples | `outputs/samples/fixed_prompt_samples.txt`, `outputs/samples/evaluation_samples.md` |
 | 9 | Ablation table / plots | `outputs/ablation/ablation_results.md`, `outputs/figures/fig9_ablation_*.png` |
-| 10 | CLI / API call | terminal screenshots of `src.generate` and `curl` against the deployed URL |
+| 10 | CLI / API call | `report/figures/fig10a_cli.png` (CLI), `report/figures/fig10b_api.png` (deployed site) |
 | extra | Architecture diagram, MLM-vs-CLM, sequential-vs-parallel | `outputs/figures/architecture_diagram.png`, `fig6b_*`, `fig6c_*`, `why_transformers.png` |
 
 ## 9. Known limitations
@@ -174,4 +189,4 @@ Live URL: **<fill in after deployment>**
 * Hendrycks & Gimpel (GELU); Ba et al. (LayerNorm).
 * Course material: `rohitg00/ai-engineering-from-scratch`, `phases/07-transformers-deep-dive` (lessons 02–07), used for concepts only.
 * Dataset: Tiny Shakespeare, <https://huggingface.co/datasets/karpathy/tiny_shakespeare>.
-* **[TEAM: state here which parts were written with AI assistance, as required by your course's policy.]**
+* **Use of AI tools:** AI_STATEMENT
