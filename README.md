@@ -135,12 +135,11 @@ Endpoints: `GET /` (web page), `GET /info`, `GET /health`, `POST /generate` (`pr
 Environment variables: `CHECKPOINT_PATH` (default `checkpoints/best.pt`), `CHECKPOINT_URL` (optional download URL if the checkpoint is not in the repo).
 
 ### Deploy on Hugging Face Spaces
-1. Commit `checkpoints/best.pt` (a few MB; `.gitignore` allows exactly this file) and push to GitHub.
-2. Render → **New → Web Service** → connect the repo (or use the included `render.yaml` Blueprint).
-3. Build command: `pip install torch --index-url https://download.pytorch.org/whl/cpu && pip install -r requirements.txt`
-4. Start command: `uvicorn src.api:app --host 0.0.0.0 --port $PORT`
-5. Environment: `PYTHON_VERSION=3.11.9`. Health check path: `/health`.
-6. Open `https://<your-service>.onrender.com` for the web page, or `/docs` for the API. (Free instances sleep when idle, so open the URL a minute before a demo.)
+1. Create a new Space on huggingface.co → **New Space** → SDK: **Gradio**, hardware: **ZeroGPU** (free).
+2. Upload the repo files to the Space: `app.py`, `src/`, `configs/`, `checkpoints/best.pt` and `requirements.txt`.
+3. `app.py` is the entry point. It loads the checkpoint once and serves the web page at `/` plus the `/generate`, `/health` and `/info` endpoints. The model runs on CPU.
+4. The Space builds and starts by itself. Open `https://<username>-<space-name>.hf.space` for the web page.
+5. Free Spaces sleep when idle, so open the URL a minute before a demo.
 
 Live URL: see the [Links](#links) table at the top.
 
@@ -165,7 +164,7 @@ Live URL: see the [Links](#links) table at the top.
 
 | Fig | Evidence | File |
 |---|---|---|
-| 1 | Hand-calculated attention | handwritten: `report/figures/hand_p1.jpg` to `hand_p5.jpg`; reproduced by code: `outputs/figures/fig1_hand_attention.png`, `outputs/logs/hand_calculation.txt` |
+| 1 | Hand-calculated attention | handwritten: report PDF (Figure 1, pages 1 to 5); reproduced by code: `outputs/figures/fig1_hand_attention.png`, `outputs/logs/hand_calculation.txt` |
 | 2 | Causal mask | `outputs/figures/fig2_causal_mask.png` |
 | 3 | Multi-head shape trace | `report/figures/fig3_shape_trace.png`, `outputs/logs/shape_trace_and_summary.txt` |
 | 4 | Positional encoding | `outputs/figures/fig4_positional_encoding.png` |
@@ -174,7 +173,7 @@ Live URL: see the [Links](#links) table at the top.
 | 7 | Attention visualisation (trained model) | `outputs/figures/fig7_attention_visualization.png` |
 | 8 | Generation samples | `outputs/samples/fixed_prompt_samples.txt`, `outputs/samples/evaluation_samples.md` |
 | 9 | Ablation table / plots | `outputs/ablation/ablation_results.md`, `outputs/figures/fig9_ablation_*.png` |
-| 10 | CLI / API call | `report/figures/fig10a_cli.png` (CLI), `report/figures/fig10b_api.png` (deployed site) |
+| 10 | CLI / API call | `report/figures/fig10a_cli.png` (CLI); deployed site: report PDF (Figure 10b) and the live demo link |
 | extra | Architecture diagram, MLM-vs-CLM, sequential-vs-parallel | `outputs/figures/architecture_diagram.png`, `fig6b_*`, `fig6c_*`, `why_transformers.png` |
 
 ## 9. Known limitations
